@@ -1,5 +1,5 @@
 <h3 style="margin-top: 30px; margin-bottom: 30px;">10問中<span style="color: #FF0000;"><%= @judge.count(true) %>問</span>正解 !</h3>
-<%= link_to "クイズに戻る", nogichecks_index_path %>
+<%= link_to "クイズに戻る", nogikuis_index_path %>
 <hr>
 <div style="margin-top: 50px; position: relative;">
   <div class="number">
@@ -222,7 +222,7 @@
 </div>
 <hr>
 <div style="padding-bottom: 50px;">
-  <%= link_to "クイズに戻る", nogichecks_index_path %>
+  <%= link_to "クイズに戻る", nogikuis_index_path %>
 </div>
 
 
@@ -230,7 +230,7 @@
 $(function(){
   history.pushState(null, null, location.href);
   $(window).on('popstate', function(){
-    location.href="/nogichecks/index";
+    location.href="/nogikuis/index";
   });
 });
 

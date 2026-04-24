@@ -1,0 +1,29 @@
+<div class="index-wrapper">
+  <div class="hero-section">
+    <h1 class="main-title">乃木クイ !</h1>
+    <p class="hero-description">乃木坂ファンのためのクイズアプリです。<br>あなたは何問正解できる！？</p>
+    
+    <div class="cta-container">
+      <%= button_to "クイズを始める", {controller: "nogikuis", action: "sort", sort: "1"}, {class: "btn-start-modern", method: :get} %>
+    </div>
+  </div>
+
+  <div class="glass-card rules-card">
+    <h2 class="rules-title">ルール</h2>
+    <ul class="rules-list">
+      <li>100問のクイズから10問ランダムで出題されます。</li>
+      <li>制限時間は1問につき10秒です。</li>
+      <li>10秒を過ぎると自動的に不正解になります。</li>
+      <li>問題を途中で終了したい場合はブラウザバックを2回押して下さい。この画面に戻ります。</li>
+    </ul>
+  </div>
+
+  <footer class="index-footer">
+    <%= link_to "利用規約", nogikuis_terms_path, class: "footer-link" %>
+    <%= link_to "プライバシーポリシー", nogikuis_privacy_path, class: "footer-link" %>
+  </footer>
+</div>
+
+<script>
+
+</script>

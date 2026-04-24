@@ -2,8 +2,8 @@
 lock '3.16.0'
 
 # アプリケーションの指定
-set :application, 'nogicheck'
-set :repo_url,  'git@github.com:Masaki-isaka/nogicheck.git'
+set :application, 'nogikui'
+set :repo_url,  'git@github.com:Masaki-isaka/nogikui.git'
 
 # sharedディレクトリに入れるファイルを指定
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
@@ -11,7 +11,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bund
 # SSH接続設定
 set :ssh_options, {
   auth_methods: ['publickey'], 
-  keys: ['~/.ssh/nogicheck.pem'] 
+  keys: ['~/.ssh/nogikui.pem'] 
 }
 
 # 保存しておく世代の設定

@@ -1,0 +1,130 @@
+<div class="bg"></div>
+<h2 class="question"><%= @question.question.content %></h2>
+<div id="circle" style="margin-left: auto;">
+</div>
+
+<p class="correct">〇正解</p>
+<p class="incorrect">×不正解</p>
+
+<% @question.question.options.each do |o| %>
+  <%= button_to({controller: "nogikuis", action: "sort", sort: @sort + 1}, {params: {is_answer: o.is_answer, content: o.content}, class: "button_option btn--white", method: :get})do %>
+    <p><%= o.content %></p>
+  <% end %>
+<% end %>
+
+<script>
+$(document).on('turbolinks:load', function() {
+  history.pushState(null, null, location.href);
+  $(window).on('popstate', function(){
+    location.href="/nogikuis/index";
+  });
+
+  var circle = document.getElementById('circle');
+  if (!circle) return;
+
+  var time;
+  var setI;
+  var bar = new ProgressBar.Circle(circle, {
+    strokeWidth: 6,
+    easing: 'linear',
+    duration: 10000,
+    color: '#FF0000',
+    trailColor: '#eee',
+    trailWidth: 1,
+    svgStyle: null,
+    step: function(state, bar) {
+      bar.setText(time);
+    }
+  });
+
+  if (bar.text) {
+    bar.text.style.color = "#000"
+    bar.text.style.fontSize = '30px';
+  }
+  bar.animate(1.0);
+
+  function startTimer(){
+    time--;
+    if(time <= 0){
+      clearInterval(setI);
+      $.ajax({
+        type: "POST",
+        url: "/nogikuis/<%= @sort %>",
+        data: {
+          is_answer: false,
+          user_id: "<%= @user_id %>"
+        },
+        dataType: "html"
+      });
+      location.href= "/nogikuis/<%= @sort + 1 %>";
+    }
+  }
+
+  function startInterval(){
+    time = 10;
+    setI = setInterval(startTimer, 1000);
+  }
+  startInterval();
+
+  var btns = document.querySelectorAll(".button_option");
+  var elements = document.querySelectorAll("input[name='is_answer']");
+  var element = document.querySelectorAll("input[name='content']");
+  
+  var log = function(){
+      location.href="/nogikuis/<%= @sort + 1 %>";
+  };
+  var move = setTimeout(log, 10000);
+
+  $(".button_option").on("click", function(e){
+    var index = $(".button_option").index(this);
+    var value = elements[index];
+    
+    clearInterval(setI);
+    clearTimeout(move);
+    bar.stop();
+
+    $(this).css("background-color", "#FF0000");
+    $(this).css("box-shadow", "0px 5px #bfbfbf");
+
+    var answer = $(value).val();
+    var your_answer = $(element[index]).val();
+    
+    $.ajax({
+      type: "POST",
+      url: "/nogikuis/<%= @sort %>",
+      data: {
+        is_answer: answer,
+        choice: your_answer,
+        user_id: "<%= @user_id %>"
+      },
+      dataType: "html"
+    });
+
+    if (answer == "true") {
+      setTimeout(function(){
+        $(".correct").fadeIn(5);
+      }, 500);
+    } else {
+      setTimeout(function(){
+        $(".incorrect").fadeIn(5); 
+      }, 500);
+    }
+
+    $(".bg").css({
+      "position": "fixed",
+      "top": "0",
+      "left": "0",
+      "width": "100%",
+      "height": "100%",
+      "background": "rgba(0,0,0, .7)"
+    });
+    $(".button_option").prop("disabled", true);
+
+    e.preventDefault();
+    setTimeout(function(){
+      location.href = "/nogikuis/<%= @sort + 1 %>";
+    }, 2000);
+  });
+});
+</script>
+

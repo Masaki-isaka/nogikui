@@ -7,7 +7,7 @@
 <p class="incorrect">×不正解</p>
 
 <% @question.question.options.each do |o| %>
-  <%= button_to({controller: "nogichecks", action: "sort", sort: @sort + 1}, {params: {is_answer: o.is_answer, content: o.content}, class: "button_option btn--white", method: :get})do %>
+  <%= button_to({controller: "nogikuis", action: "sort", sort: @sort + 1}, {params: {is_answer: o.is_answer, content: o.content}, class: "button_option btn--white", method: :get})do %>
     <p><%= o.content %></p>
   <% end %>
 <% end %>
@@ -16,7 +16,7 @@
 $(function(){
   history.pushState(null, null, location.href);
   $(window).on('popstate', function(){
-    location.href="/nogichecks/index";
+    location.href="/nogikuis/index";
   });
 
   var time;
@@ -41,14 +41,14 @@ $(function(){
       clearInterval(setI);
       $.ajax({
         type: "POST",
-        url: "/nogichecks/<%= @sort %>",
+        url: "/nogikuis/<%= @sort %>",
         data: {
           is_answer: false,
           user_id: "<%= @user_id %>"
         },
         dataType: "html"
       })
-      location.href= "/nogichecks/<%= @sort + 1 %>";
+      location.href= "/nogikuis/<%= @sort + 1 %>";
     }
   }
   startInterval();
@@ -61,7 +61,7 @@ $(function(){
   var elements = document.querySelectorAll("input[name='is_answer']");
   var element = document.querySelectorAll("input[name='content']");
   var log = function(){
-      location.href="/nogichecks/<%= @sort + 1 %>";
+      location.href="/nogikuis/<%= @sort + 1 %>";
   };
   var move = setTimeout(log, 10000);
   $.each(elements, function(index,value){
@@ -76,7 +76,7 @@ $(function(){
       console.log(answer);
       $.ajax({
         type: "POST",
-        url: "/nogichecks/<%= @sort %>",
+        url: "/nogikuis/<%= @sort %>",
         data: {
           is_answer: answer,
           choice: your_answer,
@@ -109,7 +109,7 @@ $(function(){
       }
       e.preventDefault();
       setTimeout(function(){
-        location.href = "/nogichecks/<%= @sort + 1 %>";
+        location.href = "/nogikuis/<%= @sort + 1 %>";
       }, 2000);
     });
   })
