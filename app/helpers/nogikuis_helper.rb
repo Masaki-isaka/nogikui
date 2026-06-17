@@ -1,0 +1,2 @@
+module NogikuisHelper
+end

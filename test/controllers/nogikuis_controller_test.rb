@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NogichecksControllerTest < ActionDispatch::IntegrationTest
+class NogikuisControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

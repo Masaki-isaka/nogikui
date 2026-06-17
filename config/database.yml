@@ -19,17 +19,18 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: 5432
 
 development:
   <<: *default
   adapter: postgresql
-  database: nogicheck_development
+  database: nogikui_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: nogicheck
+  #username: nogikui
 
   # The password associated with the postgres role (username).
   #password:
@@ -58,7 +59,7 @@ development:
 test:
   <<: *default
   adapter: postgresql
-  database: nogicheck_test
+  database: nogikui_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -82,7 +83,7 @@ test:
 production:
   <<: *default
   adapter: mysql2
-  database: nogicheck_production
+  database: nogikui_production
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock

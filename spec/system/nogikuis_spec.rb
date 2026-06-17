@@ -3,11 +3,11 @@ require "rails_helper"
 describe "アプリ起動", type: :system do
   describe "1ページ目遷移" do
     before do
-      visit nogichecks_index_path
+      visit nogikuis_index_path
       FactoryBot.create(:question_sort)
       FactoryBot.create(:option)
       click_on "クイズを始める"
-      visit "/nogichecks/1"
+      visit "/nogikuis/1"
     end
     it "問題ページが表示される" do
       expect(page).to have_css ".question"

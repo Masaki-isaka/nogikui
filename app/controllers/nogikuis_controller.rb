@@ -1,4 +1,4 @@
-class NogichecksController < ApplicationController
+class NogikuisController < ApplicationController
   before_action :detect_device
 
   def index 
